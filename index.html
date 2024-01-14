@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body style="height: 100vh">
+    <div
+      id="box"
+      style="
+        width: 20px;
+        height: 20px;
+        left: 50%;
+        top: 50%;
+        background-color: red;
+        position: absolute;
+        transition: 0.1s;
+      "
+    ></div>
+    <script>
+      const box = document.getElementById("box");
+      let stopMoving = false;
+      let speed = 10,
+        dirX = 1,
+        dirY = 0;
+      addEventListener("mousemove", (e) => {
+        let w =
+          ((box.offsetLeft - e.clientX) ** 2 +
+            (box.offsetTop - e.clientY) ** 2) **
+          (1 / 2);
+        dirX = -(box.offsetLeft - e.clientX) / w;
+        dirY = -(box.offsetTop - e.clientY) / w;
+        stopMoving=false
+      });
+      addEventListener("mouseover", () => {
+        stopMoving = true;
+      });
+      setInterval(() => {
+        if (!stopMoving) {
+          box.style.top = box.offsetTop + 10 * dirY + "px";
+          box.style.left = box.offsetLeft + 10 * dirX + "px";
+        }
+      }, 100);
+    </script>
+  </body>
+</html>
